@@ -19,7 +19,7 @@ const LogoutButton = ({ disabled }: { disabled: boolean }) => {
   return (
     <form action={logoutAction}>
       <button
-        className="rounded-lg border border-orange-600/30 bg-orange-600/10 px-4 py-2 text-sm text-orange-100 hover:bg-orange-600/20 focus:outline-none focus:ring-2 focus:ring-orange-600/40 transition-colors duration-200"
+        className="rounded-lg border border-orange-600/30 bg-orange-600/10 px-4 py-2 text-sm text-orange-100 hover:bg-orange-600/20 focus:outline-none focus:ring-2 focus:ring-orange-600/40 transition-colors duration-200 disabled:pointer-events-none disabled:opacity-50"
         disabled={disabled}
       >
         {isLoggingOut ? (

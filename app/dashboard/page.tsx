@@ -95,7 +95,7 @@ const DashboardPage = () => {
                 <div className="flex items-center gap-3.5">
                     <button
                         onClick={() => setIsModalOpen(true)}
-                        className="rounded-lg border border-indigo-500/30 bg-indigo-500/25 px-4 py-2 text-sm text-indigo-100 hover:bg-indigo-500/35 focus:outline-none focus:ring-2 focus:ring-indigo-500/45 transition-colors duration-200 flex items-center justify-center gap-1.5"
+                        className="rounded-lg border border-indigo-500/30 bg-indigo-500/25 px-4 py-2 text-sm text-indigo-100 hover:bg-indigo-500/35 focus:outline-none focus:ring-2 focus:ring-indigo-500/45 transition-colors duration-200 flex items-center justify-center gap-1.5 disabled:pointer-events-none disabled:opacity-50"
                         disabled={isNoteAdding || isNoteDeleting}
                     >
                         <PlusCircle className="size-4" />Add Note
@@ -142,9 +142,7 @@ const DashboardPage = () => {
                     </div>
                     <div className="pt-2">
                         <div className="flex gap-3">
-                            <SubmitButton
-                                pendingText="Adding..."
-                            >
+                            <SubmitButton pendingText="Adding...">
                                 Add note
                             </SubmitButton>
                             <button
@@ -169,7 +167,7 @@ const DashboardPage = () => {
                     You don&apos;t have any notes yet. Click on &quot;Add Note&quot; to create one.
                 </div>)
                 :
-                (<ul className="grid grid-cols-1 gap-4 lg:grid-cols-3 md:grid-cols-2">
+                (<ul className="grid grid-cols-1 gap-4 lg:grid-cols-3 md:grid-cols-2 items-start">
                     {notes?.map((note) => (
                         <li
                             className="rounded-lg border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl hover:bg-linear-to-br hover:from-white/8 hover:to-indigo-500/15 transition duration-300"
@@ -191,7 +189,7 @@ const DashboardPage = () => {
                                     </form>
                                 </div>
                             </div>
-                            <p className="mt-4 line-clamp-3 text-gray-300 whitespace-pre-wrap">
+                            <p className="mt-4 line-clamp-5 text-gray-300 whitespace-pre-wrap">
                                 {note.content}
                             </p>
                             <div className="mt-7 text-xs text-gray-400 flex flex-col gap-0.5 items-end">

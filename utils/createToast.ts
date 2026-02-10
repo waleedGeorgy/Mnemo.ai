@@ -12,12 +12,20 @@ export const createToast = (type: "success" | "error", message: string) => {
       toast.success(message, {
         style: toastDarkMode,
         duration: 4000,
+        ariaProps: {
+          role: "status",
+          "aria-live": "polite",
+        },
       });
       break;
     case "error":
       toast.error(message, {
         style: toastDarkMode,
         duration: 4000,
+        ariaProps: {
+          role: "alert",
+          "aria-live": "polite",
+        },
       });
       break;
   }
