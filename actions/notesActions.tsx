@@ -1,8 +1,7 @@
 'use server'
-
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
-import { createClient } from "@/utils/supabase/server"
+import { createClient } from "@/utils/supabase/server";
 import { Note } from "@/utils/types";
 
 type NotesActionsResponses = {
@@ -14,7 +13,7 @@ type NotesActionsResponses = {
     updatedNote?: Note
 }
 
-export const addNote = async (prevState: unknown, formData: FormData): Promise<NotesActionsResponses> => {
+export const addNote = async (prevState: unknown, formData: FormData) => {
     const supabase = await createClient();
     const { data } = await supabase.auth.getUser();
 
@@ -45,7 +44,7 @@ export const addNote = async (prevState: unknown, formData: FormData): Promise<N
     }
 }
 
-export const updateNote = async (prevState: unknown, formData: FormData): Promise<NotesActionsResponses> => {
+export const updateNote = async (prevState: unknown, formData: FormData) => {
     const supabase = await createClient();
     const { data } = await supabase.auth.getUser();
 
@@ -85,7 +84,7 @@ export const updateNote = async (prevState: unknown, formData: FormData): Promis
     return res;
 }
 
-export const deleteNote = async (prevState: unknown, formData: FormData): Promise<NotesActionsResponses> => {
+export const deleteNote = async (prevState: unknown, formData: FormData) => {
     const supabase = await createClient();
     const { data } = await supabase.auth.getUser();
 
@@ -108,7 +107,7 @@ export const deleteNote = async (prevState: unknown, formData: FormData): Promis
     return res;
 }
 
-export async function createNoteSummary(id: string, summary: string): Promise<{ success: boolean; summary: string }> {
+export const createNoteSummary = async (id: string, summary: string) => {
     const supabase = await createClient();
 
     if (!id || !summary) {

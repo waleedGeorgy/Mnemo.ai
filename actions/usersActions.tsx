@@ -8,7 +8,7 @@ type AuthActionsResponses = {
     success?: string;
 }
 
-export const login = async (prevState: unknown, formData: FormData): Promise<AuthActionsResponses> => {
+export const login = async (prevState: unknown, formData: FormData) => {
     const supabase = await createClient();
 
     const res = {} as AuthActionsResponses;
@@ -35,7 +35,7 @@ export const login = async (prevState: unknown, formData: FormData): Promise<Aut
     return res;
 }
 
-export const signup = async (prevState: unknown, formData: FormData): Promise<AuthActionsResponses> => {
+export const signup = async (prevState: unknown, formData: FormData) => {
     const supabase = await createClient();
 
     const res = {} as AuthActionsResponses;
@@ -62,7 +62,7 @@ export const signup = async (prevState: unknown, formData: FormData): Promise<Au
     return res;
 }
 
-export const logout = async (): Promise<AuthActionsResponses> => {
+export const logout = async () => {
     const supabase = await createClient();
     const { error } = await supabase.auth.signOut();
 

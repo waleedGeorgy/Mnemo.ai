@@ -29,7 +29,7 @@ const LogoutButton = ({ disabled }: { disabled: boolean }) => {
         ) : (
           <div className="flex items-center justify-center gap-1.5">
             <LogOut className="size-4" />
-            <span>Log out</span>
+            <span className="hidden md:inline-block">Log out</span>
           </div>
         )}
       </button>

@@ -100,13 +100,13 @@ const DashboardPage = () => {
                         </div>
                     }
                 </div>
-                <div className="flex items-center gap-3.5">
+                <div className="flex items-center gap-3">
                     <button
                         onClick={() => setIsModalOpen(true)}
                         className="rounded-lg border border-indigo-500/30 bg-indigo-500/25 px-4 py-2 text-sm text-indigo-100 hover:bg-indigo-500/35 focus:outline-none focus:ring-2 focus:ring-indigo-500/45 transition-colors duration-200 flex items-center justify-center gap-1.5 disabled:pointer-events-none disabled:opacity-50"
                         disabled={isNoteAdding || isNoteDeleting}
                     >
-                        <PlusCircle className="size-4" />Add Note
+                        <PlusCircle className="size-4" /><span className="hidden md:inline-block">Add Note</span>
                     </button>
                     <LogoutButton disabled={isNoteAdding || isNoteDeleting} />
                 </div>
@@ -162,57 +162,57 @@ const DashboardPage = () => {
                     </div>
                 </form>
             </Modal>
-
-            {isNotesLoading ? (
+            {isNotesLoading ?
                 <div className="rounded-xl border border-white/10 bg-white/5 p-10 text-gray-400 animate-pulse flex items-center justify-center gap-1.5">
                     <Loader2 className="size-5 animate-spin" />Loading your notes...
                 </div>
-            ) : notes?.length === 0 && !isNotesLoading ?
-                (<div className="rounded-xl border border-white/10 bg-white/5 p-10 text-center text-gray-300">
-                    You don&apos;t have any notes yet. Click on &quot;Add Note&quot; to create one.
-                </div>)
                 :
-                (<ul className="grid grid-cols-1 gap-4 md:grid-cols-2 items-start">
-                    {notes?.map((note) => (
-                        <Link
-                            className="rounded-lg border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl hover:bg-linear-to-br hover:from-white/7 hover:to-indigo-500/15 transition duration-300 group"
-                            key={note.id}
-                            href={`/notes/${note.id}`}
-                        >
-                            <div className="flex items-start justify-between gap-2">
-                                <span className="text-xl font-semibold text-gray-100 line-clamp-2 group-hover:underline underline-offset-2 group-hover:text-indigo-300">
-                                    {note.title}
-                                </span>
-                                <div className="flex items-center gap-1.5">
-                                    {note.summary && <Sparkles className="size-4 text-indigo-400 mr-1" />}
-                                    <form action={noteDeleteAction} onClick={(e) => e.stopPropagation()}>
-                                        <input type="hidden" name="id" value={note.id} />
-                                        <DeleteButton
-                                            isNoteDeleting={isNoteDeleting}
-                                            currentNoteId={note.id}
-                                            deletingNoteId={deletingNoteId}
-                                        />
-                                    </form>
+                notes?.length === 0 && !isNotesLoading ?
+                    <div className="rounded-xl border border-white/10 bg-white/5 p-10 text-center text-gray-300">
+                        You don&apos;t have any notes yet. Click on &quot;Add Note&quot; to create one.
+                    </div>
+                    :
+                    <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                        {notes?.map((note) => (
+                            <Link
+                                className="rounded-lg border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl hover:bg-linear-to-br hover:from-white/7 hover:to-indigo-500/15 transition duration-300 group hover:-translate-y-1"
+                                key={note.id}
+                                href={`/notes/${note.id}`}
+                            >
+                                <div className="flex items-start justify-between gap-2">
+                                    <span className="text-xl font-semibold text-gray-100 line-clamp-2 group-hover:underline underline-offset-2 group-hover:text-indigo-300">
+                                        {note.title}
+                                    </span>
+                                    <div className="flex items-center gap-1.5">
+                                        {note.summary && <Sparkles className="size-4 text-indigo-400 mr-1" />}
+                                        <form action={noteDeleteAction} onClick={(e) => e.stopPropagation()}>
+                                            <input type="hidden" name="id" value={note.id} />
+                                            <DeleteButton
+                                                isNoteDeleting={isNoteDeleting}
+                                                currentNoteId={note.id}
+                                                deletingNoteId={deletingNoteId}
+                                            />
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
-                            <p className="mt-4 line-clamp-3 text-gray-300 whitespace-pre-wrap">
-                                {note.content}
-                            </p>
-                            <div className="mt-7 text-xs text-gray-400 flex flex-col gap-1 items-end font-mono">
-                                <time>
-                                    <span className="font-semibold">Created at:</span>{" "}
-                                    {new Date(note.created_at).toLocaleString('en-GB', { year: 'numeric', month: 'long', day: 'numeric', hour: "2-digit", minute: "numeric" })}
-                                </time>
-                                {note.created_at !== note.updated_at &&
+                                <p className="mt-4 line-clamp-1 text-gray-300 whitespace-pre-wrap">
+                                    {note.content}
+                                </p>
+                                <div className="mt-7 text-xs text-gray-400 flex flex-col gap-1 items-end font-mono">
                                     <time>
-                                        <span className="font-semibold">Last updated:</span>{" "}
-                                        {formatDistanceToNow(new Date(note.updated_at), { addSuffix: true })}
+                                        <span className="font-semibold">Created:</span>{" "}
+                                        {new Date(note.created_at).toLocaleString('en-GB', { year: 'numeric', month: 'long', day: 'numeric', hour: "2-digit", minute: "numeric" })}
                                     </time>
-                                }
-                            </div>
-                        </Link>
-                    ))}
-                </ul>)
+                                    {note.created_at !== note.updated_at &&
+                                        <time>
+                                            <span className="font-semibold">Last updated:</span>{" "}
+                                            {formatDistanceToNow(new Date(note.updated_at), { addSuffix: true })}
+                                        </time>
+                                    }
+                                </div>
+                            </Link>
+                        ))}
+                    </ul>
             }
         </section >
     );
