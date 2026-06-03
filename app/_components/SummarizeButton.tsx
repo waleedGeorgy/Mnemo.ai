@@ -21,7 +21,6 @@ const SummarizeButton = ({
     disabled,
     isSummarizing
 }: SummarizeButtonProps) => {
-
     const handleSummarize = async () => {
         setIsSummarizing(true);
 

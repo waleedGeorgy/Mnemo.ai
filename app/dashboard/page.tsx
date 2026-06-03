@@ -18,6 +18,7 @@ import Logo from "@/app/icon.png";
 const DashboardPage = () => {
     const [userEmail, setUserEmail] = useState('');
     const [notes, setNotes] = useState<Note[]>();
+    const [noteData, setNoteData] = useState({ title: "", content: "" });
     const [isNotesLoading, setIsNotesLoading] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [deletingNoteId, setDeletingNoteId] = useState<string>();
@@ -111,13 +112,11 @@ const DashboardPage = () => {
                     <LogoutButton disabled={isNoteAdding || isNoteDeleting} />
                 </div>
             </div>
-
             <Modal isOpen={isModalOpen} onClose={() => !isNoteAdding && setIsModalOpen(false)} isNoteAdding={isNoteAdding}>
                 <div className="mb-6">
                     <h3 className="text-xl font-semibold text-gray-100">Add a note</h3>
                     <p className="mt-1 text-sm text-gray-400">Add a new note to your collection</p>
                 </div>
-
                 <form action={addNotesAction} className="space-y-4">
                     <div>
                         <label htmlFor="modal-title" className="mb-1 block text-sm text-gray-300">
@@ -128,6 +127,8 @@ const DashboardPage = () => {
                             name="title"
                             required
                             placeholder="Brief note title"
+                            value={noteData.title}
+                            onChange={(e) => setNoteData({ ...noteData, title: e.target.value })}
                             className="w-full rounded-xl bg-zinc-800/50 px-3 py-2.5 text-gray-100 outline-none ring-1 ring-white/10 transition focus:ring-2 focus:ring-indigo-500 placeholder:text-zinc-500"
                             disabled={isNoteAdding}
                         />
@@ -141,13 +142,15 @@ const DashboardPage = () => {
                             name="content"
                             rows={4}
                             placeholder="Note contents"
+                            value={noteData.content}
+                            onChange={(e) => setNoteData({ ...noteData, content: e.target.value })}
                             className="w-full rounded-xl bg-zinc-800/50 px-3 py-2.5 text-gray-100 outline-none ring-1 ring-white/10 transition focus:ring-2 focus:ring-indigo-500 placeholder:text-zinc-500 resize-y"
                             disabled={isNoteAdding}
                         />
                     </div>
                     <div className="pt-2">
                         <div className="flex gap-3">
-                            <SubmitButton pendingText="Adding..." disabled={isNoteAdding || isNoteDeleting}>
+                            <SubmitButton pendingText="Adding..." disabled={isNoteAdding || isNoteDeleting || !noteData.title || !noteData.content}>
                                 Add note
                             </SubmitButton>
                             <button
@@ -175,7 +178,7 @@ const DashboardPage = () => {
                     <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
                         {notes?.map((note) => (
                             <Link
-                                className="rounded-lg border border-white/10 bg-white/5 px-5 py-4 backdrop-blur-xl hover:bg-linear-to-br hover:from-white/7 hover:to-indigo-500/15 transition duration-300 group hover:-translate-y-1"
+                                className="rounded-lg border border-white/10 bg-zinc-800/50 px-5 py-4 backdrop-blur-xl hover:bg-linear-to-br hover:from-white/7 hover:to-indigo-500/15 transition duration-300 group hover:-translate-y-1"
                                 key={note.id}
                                 href={`/notes/${note.id}`}
                             >

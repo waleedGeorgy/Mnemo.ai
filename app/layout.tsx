@@ -27,10 +27,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <main className="relative min-h-screen bg-[radial-gradient(100%_80%_at_50%_0%,#0b1220_0%,#0a0a0b_60%,#060607_100%)] text-gray-200 font-sans">
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <main className="relative min-h-screen bg-zinc-950 text-zinc-200 font-sans">
           {children}
           <Toaster position="top-center" reverseOrder={true} />
         </main>
