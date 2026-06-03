@@ -153,7 +153,7 @@ const NoteDetailsPage = () => {
                     </form>
                 </div>
                 <div className="rounded-xl border border-white/10 bg-white/5 px-6 py-5 backdrop-blur-xl">
-                    {!note.summary ? (
+                    {!note.summary ?
                         <p className="text-sm text-gray-300 flex flex-row items-center justify-center">
                             No summary yet — click the
                             <span className="text-indigo-400 flex flex-row items-center gap-1 mx-1.5">
@@ -161,7 +161,7 @@ const NoteDetailsPage = () => {
                             </span>
                             button to generate an AI summary of this note.
                         </p>
-                    ) : (
+                        :
                         <div className="flex flex-col gap-4">
                             <div className="flex items-center justify-between gap-2 flex-wrap">
                                 <div className="flex items-center gap-1">
@@ -187,7 +187,7 @@ const NoteDetailsPage = () => {
                                 {note.summary}
                             </p>
                         </div>
-                    )}
+                    }
                 </div>
             </div>
         </section >
